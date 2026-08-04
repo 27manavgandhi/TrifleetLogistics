@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="200" cy="150" r="200" fill="#f59e0b" opacity="0.08"/>
+  <circle cx="1000" cy="500" r="250" fill="#3b82f6" opacity="0.06"/>
+  <rect x="80" y="240" width="60" height="60" rx="14" fill="url(#accent)"/>
+  <path d="M95 270 L110 255 L125 270 L125 285 L95 285 Z M110 255 L110 245 M100 285 L100 295 M120 285 L120 295" stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <text x="160" y="280" font-family="system-ui, sans-serif" font-size="36" font-weight="700" fill="#ffffff">Tri Fleet Logistics</text>
+  <text x="160" y="310" font-family="system-ui, sans-serif" font-size="14" font-weight="600" fill="#94a3b8" letter-spacing="3">PAN-INDIA FULL TRUCK LOAD &amp; B2B TRANSPORT</text>
+  <text x="80" y="380" font-family="system-ui, sans-serif" font-size="48" font-weight="800" fill="#ffffff">Moving India with</text>
+  <text x="80" y="440" font-family="system-ui, sans-serif" font-size="48" font-weight="800" fill="url(#accent)">precision &amp; control</text>
+  <text x="80" y="500" font-family="system-ui, sans-serif" font-size="20" fill="#94a3b8">Delhi-based | 24/7 Control Room | 500+ Vehicles | 98.6% On-Time</text>
+</svg>
