@@ -54,12 +54,12 @@ export function Header() {
       >
         <div className="container-px mx-auto flex h-16 max-w-8xl items-center justify-between gap-6 lg:h-20">
           <Link href="/" className="group flex items-center gap-2.5" aria-label="Tri Fleet Logistics home">
-            <div className="relative h-10 w-10 overflow-hidden rounded-xl">
+            <div className="relative h-14 w-14 overflow-hidden rounded-xl">
               <Image
-                src="/images/WhatsApp_Image_2026-07-25_at_12.09.00.jpeg"
+                src="/images/logo.png"
                 alt="TriFleet Logistics Logo"
                 fill
-                sizes="40px"
+                sizes="56px"
                 className="object-cover"
                 priority
               />
