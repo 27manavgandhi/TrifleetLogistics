@@ -20,7 +20,7 @@ const csImages: Record<string, string> = {
   'automotive-jit-lane-delivery': images.truckHighway2,
   'ecommerce-peak-season-line-haul': images.boxesVan,
   'industrial-heavy-machinery-transport': images.craneBlue,
-  'textile-export-panipat-mundra': images.truckHighway4,
+  'textile-export-panipat-mundra': images.truckHighway2,
 };
 
 type Props = { params: { slug: string } };
