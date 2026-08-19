@@ -6,6 +6,7 @@ export const images = {
   truckHighway1: '/images/hero1.png?auto=compress&cs=tinysrgb&w=1600',
   truckHighway2: '/images/hero2.png?auto=compress&cs=tinysrgb&w=1600',
   truckHighway3: '/images/hero3.png?auto=compress&cs=tinysrgb&w=1600',
+  truckHighway4: '/images/hero5.png?auto=compress&cs=tinysrgb&w=1600',
   truckHighway5: '/images/hero5.png?auto=compress&cs=tinysrgb&w=1600',
   fleet1: '/images/fleet1.png?auto=compress&cs=tinysrgb&w=1600',
   fleet2: '/images/fleet2.png?auto=compress&cs=tinysrgb&w=1600',
