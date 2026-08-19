@@ -65,7 +65,7 @@ export function FleetShowcase() {
                   <div className="flex flex-1 flex-col gap-1">
                     <div className="flex items-center justify-between gap-3">
                       <h3 className="text-base font-semibold text-foreground">{v.name}</h3>
-                      <span className="shrink-0 text-xs font-semibold text-accent-bright">{v.capacityTonnes}</span>
+                      <span className="shrink-0 text-xs font-semibold text-accent-bright">{v.count}+ units</span>
                     </div>
                     <p className="text-sm text-muted-foreground">{v.bodyType}</p>
                     <p className="text-xs text-muted-foreground/80">Ideal for: {v.idealFor}</p>
