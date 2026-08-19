@@ -1,0 +1,355 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Brand: Deep logistics navy + electric amber */
+    --primary: 222 89% 16%;
+    --primary-foreground: 210 40% 98%;
+    --primary-deep: 224 95% 9%;
+
+    /* Amber accent */
+    --accent: 38 92% 50%;
+    --accent-foreground: 222 47% 11%;
+    --accent-bright: 38 96% 56%;
+
+    --secondary: 217 33% 94%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 222 47% 11%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 38 92% 50%;
+    --radius: 0.75rem;
+
+    --chart-1: 222 89% 16%;
+    --chart-2: 38 92% 50%;
+    --chart-3: 142 71% 45%;
+    --chart-4: 199 89% 48%;
+    --chart-5: 280 65% 60%;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 222 47% 11%;
+    --primary-deep: 224 95% 9%;
+    --accent: 38 92% 50%;
+    --accent-foreground: 222 47% 11%;
+    --accent-bright: 38 96% 56%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+    --success: 142 71% 45%;
+    --success-foreground: 210 40% 98%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 222 47% 11%;
+    --border: 217 33% 20%;
+    --input: 217 33% 20%;
+    --ring: 38 92% 50%;
+    --chart-1: 217 91% 60%;
+    --chart-2: 38 92% 50%;
+    --chart-3: 142 71% 45%;
+    --chart-4: 199 89% 48%;
+    --chart-5: 280 65% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    overflow-x: hidden;
+  }
+  /* Smooth theme transition */
+  html.theme-ready,
+  html.theme-ready body,
+  html.theme-ready * {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  }
+  /* Disable transitions during initial load to prevent flash */
+  html:not(.theme-ready) * {
+    transition: none !important;
+  }
+  ::selection {
+    background: hsl(var(--accent) / 0.3);
+    color: hsl(var(--primary));
+  }
+  /* Focus visibility for accessibility */
+  :focus-visible {
+    outline: 2px solid hsl(var(--accent));
+    outline-offset: 2px;
+  }
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 0.4);
+    border-radius: 9999px;
+    border: 2px solid hsl(var(--muted));
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.7);
+  }
+}
+
+@layer components {
+  .container-px {
+    @apply px-5 sm:px-8 lg:px-12 xl:px-16;
+  }
+  .section-py {
+    @apply py-20 sm:py-28 lg:py-36;
+  }
+  .glass {
+    background: hsl(var(--card) / 0.6);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid hsl(var(--border) / 0.6);
+  }
+  .glass-dark {
+    background: hsl(var(--primary-deep) / 0.55);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid hsl(0 0% 100% / 0.08);
+  }
+  .text-gradient-brand {
+    background: linear-gradient(
+      120deg,
+      hsl(var(--primary)) 0%,
+      hsl(217 70% 35%) 50%,
+      hsl(var(--accent)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .text-gradient-light {
+    color: #fff;
+    background: linear-gradient(120deg, #fff 0%, hsl(38 92% 70%) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .bg-grid {
+    background-image: linear-gradient(
+        hsl(var(--border) / 0.5) 1px,
+        transparent 1px
+      ),
+      linear-gradient(90deg, hsl(var(--border) / 0.5) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .bg-grid-dark {
+    background-image: linear-gradient(
+        hsl(0 0% 100% / 0.05) 1px,
+        transparent 1px
+      ),
+      linear-gradient(90deg, hsl(0 0% 100% / 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .bg-radial-fade {
+    background: radial-gradient(
+      circle at 50% 0%,
+      hsl(var(--accent) / 0.12),
+      transparent 60%
+    );
+  }
+  .shadow-glow {
+    box-shadow: 0 0 0 1px hsl(var(--accent) / 0.1),
+      0 10px 40px -10px hsl(var(--accent) / 0.35);
+  }
+  .shadow-card {
+    box-shadow: 0 1px 2px hsl(var(--foreground) / 0.04),
+      0 12px 32px -12px hsl(var(--primary) / 0.18);
+  }
+  .shadow-card-hover {
+    box-shadow: 0 1px 2px hsl(var(--foreground) / 0.04),
+      0 24px 60px -18px hsl(var(--primary) / 0.3);
+  }
+  .card-interactive {
+    @apply transition-shadow duration-500 ease-out hover:shadow-card-hover;
+  }
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  }
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 12%,
+      black 88%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 12%,
+      black 88%,
+      transparent
+    );
+  }
+}
+
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  .will-change-transform {
+    will-change: transform;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
+
+/* Marquee animation */
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee-x {
+  animation: marquee-x var(--marquee-duration, 40s) linear infinite;
+}
+@keyframes marquee-x-reverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.animate-marquee-x-reverse {
+  animation: marquee-x-reverse var(--marquee-duration, 40s) linear infinite;
+}
+
+/* Aurora / animated gradient blob */
+@keyframes aurora-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4%, -3%, 0) scale(1.08);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+.animate-aurora {
+  animation: aurora-drift 18s ease-in-out infinite;
+}
+@keyframes aurora-drift-2 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1.05);
+  }
+  50% {
+    transform: translate3d(-5%, 4%, 0) scale(0.95);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.05);
+  }
+}
+.animate-aurora-2 {
+  animation: aurora-drift-2 22s ease-in-out infinite;
+}
+
+/* Slow spin for badge rings */
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin-slow {
+  animation: spin-slow 24s linear infinite;
+}
+
+/* Shimmer for skeletons / buttons */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+.animate-shimmer {
+  animation: shimmer 2.5s infinite;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-aurora,
+  .animate-aurora-2,
+  .animate-marquee-x,
+  .animate-marquee-x-reverse,
+  .animate-spin-slow {
+    animation: none !important;
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
