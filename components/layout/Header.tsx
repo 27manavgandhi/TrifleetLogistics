@@ -52,39 +52,60 @@ export function Header() {
 
   return (
     <>
-      {/* =========================
-          DESKTOP / MAIN HEADER
-          ========================= */}
-      <motion.header
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{
-          duration: 0.6,
-          ease: [0.16, 1, 0.3, 1],
-        }}
+      {/* =========================================================
+          MAIN HEADER
+          Dark / Transparent / Responsive
+          ========================================================= */}
+      <header
         className={cn(
-          'fixed inset-x-0 top-0 z-[80] border-b bg-white transition-shadow duration-500',
+          'fixed inset-x-0 top-0 z-[80]',
+          'border-b border-white/10',
+          'bg-[#050816]/90',
+          'backdrop-blur-xl',
+          'transition-all duration-500',
           scrolled
-            ? 'border-border/60 shadow-md'
-            : 'border-border/40 shadow-sm'
+            ? 'bg-[#050816]/95 shadow-lg shadow-black/20'
+            : 'bg-[#050816]/85'
         )}
       >
         <div
           className={cn(
             'container-px mx-auto flex max-w-8xl items-center justify-between',
-            'h-16 gap-3 sm:h-18 sm:gap-4 lg:h-20 lg:gap-6'
+            'h-16 gap-3',
+            'sm:h-18 sm:gap-4',
+            'lg:h-20 lg:gap-6'
           )}
         >
-          {/* =========================
+          {/* =====================================================
               BRAND
-              ========================= */}
+              ===================================================== */}
           <Link
             href="/"
             aria-label="TriFleet Logistics home"
-            className="flex min-w-0 shrink-0 items-center gap-2 sm:gap-2.5"
+            className="
+              flex
+              min-w-0
+              shrink-0
+              items-center
+              gap-2
+              sm:gap-2.5
+            "
           >
             {/* Logo */}
-            <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-xl sm:h-11 sm:w-11 lg:h-14 lg:w-14">
+            <div
+              className="
+                relative
+                h-10
+                w-10
+                shrink-0
+                overflow-hidden
+                rounded-xl
+                sm:h-11
+                sm:w-11
+                lg:h-14
+                lg:w-14
+              "
+            >
               <Image
                 src="/images/logo.png"
                 alt="TriFleet Logistics Logo"
@@ -103,7 +124,7 @@ export function Header() {
                   text-[17px]
                   font-bold
                   tracking-tight
-                  text-foreground
+                  text-white
                   sm:text-lg
                   lg:text-xl
                 "
@@ -119,7 +140,7 @@ export function Header() {
                   font-semibold
                   uppercase
                   tracking-[0.2em]
-                  text-muted-foreground
+                  text-white/60
                   sm:text-[9px]
                   lg:text-[10px]
                 "
@@ -129,9 +150,9 @@ export function Header() {
             </div>
           </Link>
 
-          {/* =========================
-              DESKTOP NAV
-              ========================= */}
+          {/* =====================================================
+              DESKTOP NAVIGATION
+              ===================================================== */}
           <nav
             className="hidden items-center gap-1 2xl:flex"
             aria-label="Primary"
@@ -140,18 +161,24 @@ export function Header() {
               <div
                 key={item.title}
                 className="relative"
-                onMouseEnter={() =>
-                  item.children && setMegaOpen(item.title)
-                }
-                onMouseLeave={() => setMegaOpen(null)}
+                onMouseEnter={() => {
+                  if (item.children) {
+                    setMegaOpen(item.title);
+                  }
+                }}
+                onMouseLeave={() => {
+                  setMegaOpen(null);
+                }}
               >
                 <Link
                   href={item.href}
                   className={cn(
-                    'flex items-center gap-1 rounded-lg px-3.5 py-2 text-sm font-medium transition-colors',
+                    'flex items-center gap-1 rounded-lg px-3.5 py-2',
+                    'text-sm font-medium',
+                    'transition-colors duration-200',
                     isActive(item.href)
                       ? 'text-accent-bright'
-                      : 'text-foreground/80 hover:text-accent-bright'
+                      : 'text-white/80 hover:text-accent-bright'
                   )}
                 >
                   {item.title}
@@ -161,6 +188,9 @@ export function Header() {
                   )}
                 </Link>
 
+                {/* =================================================
+                    DESKTOP MEGA MENU
+                    ================================================= */}
                 {item.children && megaOpen === item.title && (
                   <AnimatePresence>
                     <motion.div
@@ -183,22 +213,51 @@ export function Header() {
                         duration: 0.2,
                         ease: [0.16, 1, 0.3, 1],
                       }}
-                      className="absolute left-1/2 top-full z-50 w-72 -translate-x-1/2 pt-3"
+                      className="
+                        absolute
+                        left-1/2
+                        top-full
+                        z-50
+                        w-72
+                        -translate-x-1/2
+                        pt-3
+                      "
                     >
-                      <div className="overflow-hidden rounded-2xl border border-border/70 bg-card/95 p-3 shadow-card backdrop-blur-xl">
+                      <div
+                        className="
+                          overflow-hidden
+                          rounded-2xl
+                          border
+                          border-white/10
+                          bg-[#07101f]/95
+                          p-3
+                          shadow-2xl
+                          shadow-black/30
+                          backdrop-blur-xl
+                        "
+                      >
                         <div className="flex flex-col gap-1">
                           {item.children.map((child) => (
                             <Link
                               key={child.href}
                               href={child.href}
-                              className="group flex flex-col gap-0.5 rounded-xl p-3 transition-colors hover:bg-accent/10"
+                              className="
+                                group
+                                flex
+                                flex-col
+                                gap-0.5
+                                rounded-xl
+                                p-3
+                                transition-colors
+                                hover:bg-white/5
+                              "
                             >
-                              <span className="text-sm font-semibold text-foreground">
+                              <span className="text-sm font-semibold text-white">
                                 {child.title}
                               </span>
 
                               {child.description && (
-                                <span className="text-xs text-muted-foreground">
+                                <span className="text-xs text-white/55">
                                   {child.description}
                                 </span>
                               )}
@@ -213,11 +272,11 @@ export function Header() {
             ))}
           </nav>
 
-          {/* =========================
+          {/* =====================================================
               RIGHT SIDE
-              ========================= */}
+              ===================================================== */}
           <div className="flex shrink-0 items-center gap-2">
-            {/* Phone - desktop/tablet */}
+            {/* Phone */}
             <a
               href={`tel:${siteConfig.contact.phoneE164[0]}`}
               className="
@@ -229,13 +288,14 @@ export function Header() {
                 py-2
                 text-sm
                 font-medium
-                text-foreground
+                text-white/90
                 transition-colors
                 hover:text-accent-bright
                 md:flex
               "
             >
               <Phone className="h-4 w-4 text-accent" />
+
               {siteConfig.contact.phones[0]}
             </a>
 
@@ -243,14 +303,17 @@ export function Header() {
             <Button
               asChild
               size="sm"
-              className="hidden sm:inline-flex"
+              className="
+                hidden
+                sm:inline-flex
+              "
             >
               <Link href="/contact">Get a Quote</Link>
             </Button>
 
-            {/* =========================
+            {/* =================================================
                 MOBILE MENU BUTTON
-                ========================= */}
+                ================================================= */}
             <button
               type="button"
               onClick={() => setMobileOpen((value) => !value)}
@@ -266,11 +329,11 @@ export function Header() {
                 justify-center
                 rounded-lg
                 border
-                border-border
-                bg-white
-                text-foreground
+                border-white/15
+                bg-white/5
+                text-white
                 transition-colors
-                hover:bg-muted
+                hover:bg-white/10
                 2xl:hidden
               "
             >
@@ -281,28 +344,30 @@ export function Header() {
                   aria-hidden="true"
                 />
               ) : (
-                /*
-                 * Explicit hamburger bars instead of relying on
-                 * the Menu SVG. This guarantees the 3 lines remain
-                 * visible on mobile devices.
-                 */
                 <span
-                  className="flex w-[20px] flex-col items-center justify-center gap-[4px]"
+                  className="
+                    flex
+                    w-[20px]
+                    flex-col
+                    items-center
+                    justify-center
+                    gap-[4px]
+                  "
                   aria-hidden="true"
                 >
-                  <span className="block h-[2px] w-[20px] rounded-full bg-foreground" />
-                  <span className="block h-[2px] w-[20px] rounded-full bg-foreground" />
-                  <span className="block h-[2px] w-[20px] rounded-full bg-foreground" />
+                  <span className="block h-[2px] w-[20px] rounded-full bg-white" />
+                  <span className="block h-[2px] w-[20px] rounded-full bg-white" />
+                  <span className="block h-[2px] w-[20px] rounded-full bg-white" />
                 </span>
               )}
             </button>
           </div>
         </div>
-      </motion.header>
+      </header>
 
-      {/* =========================
+      {/* =========================================================
           MOBILE MENU
-          ========================= */}
+          ========================================================= */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -312,13 +377,23 @@ export function Header() {
             className="fixed inset-0 z-[90] 2xl:hidden"
           >
             {/* Backdrop */}
-            <div
-              className="absolute inset-0 bg-primary-deep/60 backdrop-blur-sm"
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="
+                absolute
+                inset-0
+                bg-black/70
+                backdrop-blur-sm
+              "
               onClick={() => setMobileOpen(false)}
               aria-hidden="true"
             />
 
-            {/* Drawer */}
+            {/* =================================================
+                MOBILE DRAWER
+                ================================================= */}
             <motion.nav
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
@@ -338,18 +413,21 @@ export function Header() {
                 max-w-sm
                 flex-col
                 overflow-y-auto
-                bg-background
+                border-l
+                border-white/10
+                bg-[#050816]
                 px-5
                 pb-6
                 pt-5
                 shadow-2xl
+                shadow-black/40
                 sm:px-6
               "
               aria-label="Mobile navigation"
             >
-              {/* =========================
+              {/* =================================================
                   MOBILE DRAWER HEADER
-                  ========================= */}
+                  ================================================= */}
               <div
                 className="
                   flex
@@ -357,7 +435,7 @@ export function Header() {
                   items-center
                   justify-between
                   border-b
-                  border-border/60
+                  border-white/10
                   pb-5
                 "
               >
@@ -366,12 +444,24 @@ export function Header() {
                   href="/"
                   onClick={() => setMobileOpen(false)}
                   aria-label="TriFleet Logistics home"
-                  className="flex min-w-0 items-center gap-2.5"
+                  className="
+                    flex
+                    min-w-0
+                    items-center
+                    gap-2.5
+                  "
                 >
-                  {/* IMPORTANT:
-                      Same logo as desktop.
-                  */}
-                  <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-xl">
+                  {/* Logo */}
+                  <div
+                    className="
+                      relative
+                      h-10
+                      w-10
+                      shrink-0
+                      overflow-hidden
+                      rounded-xl
+                    "
+                  >
                     <Image
                       src="/images/logo.png"
                       alt="TriFleet Logistics Logo"
@@ -383,12 +473,38 @@ export function Header() {
                   </div>
 
                   {/* Brand text */}
-                  <div className="flex min-w-0 flex-col justify-center leading-none">
-                    <span className="whitespace-nowrap text-lg font-bold tracking-tight text-foreground">
+                  <div
+                    className="
+                      flex
+                      min-w-0
+                      flex-col
+                      justify-center
+                      leading-none
+                    "
+                  >
+                    <span
+                      className="
+                        whitespace-nowrap
+                        text-lg
+                        font-bold
+                        tracking-tight
+                        text-white
+                      "
+                    >
                       TriFleet
                     </span>
 
-                    <span className="mt-1 whitespace-nowrap text-[9px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                    <span
+                      className="
+                        mt-1
+                        whitespace-nowrap
+                        text-[9px]
+                        font-semibold
+                        uppercase
+                        tracking-[0.2em]
+                        text-white/60
+                      "
+                    >
                       Logistics
                     </span>
                   </div>
@@ -408,11 +524,11 @@ export function Header() {
                     justify-center
                     rounded-lg
                     border
-                    border-border
-                    bg-background
-                    text-foreground
+                    border-white/15
+                    bg-white/5
+                    text-white
                     transition-colors
-                    hover:bg-muted
+                    hover:bg-white/10
                   "
                 >
                   <X
@@ -423,9 +539,9 @@ export function Header() {
                 </button>
               </div>
 
-              {/* =========================
+              {/* =================================================
                   MOBILE NAV LINKS
-                  ========================= */}
+                  ================================================= */}
               <ul className="flex flex-col gap-1 pt-5">
                 {mainNav.map((item) => (
                   <li key={item.title}>
@@ -443,17 +559,26 @@ export function Header() {
                             py-3
                             text-base
                             font-semibold
-                            text-foreground
+                            text-white/90
                             transition-colors
-                            hover:bg-accent/10
+                            hover:bg-white/5
                           "
                         >
                           {item.title}
 
-                          <ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180" />
+                          <ChevronDown
+                            className="
+                              h-4
+                              w-4
+                              text-white/60
+                              transition-transform
+                              group-open:rotate-180
+                            "
+                          />
                         </summary>
 
                         <div className="flex flex-col gap-0.5 pl-2">
+                          {/* Overview */}
                           <Link
                             href={item.href}
                             onClick={() => setMobileOpen(false)}
@@ -463,14 +588,16 @@ export function Header() {
                               py-2.5
                               text-sm
                               font-medium
-                              text-muted-foreground
+                              text-white/55
                               transition-colors
-                              hover:bg-accent/10
+                              hover:bg-white/5
+                              hover:text-white
                             "
                           >
                             Overview
                           </Link>
 
+                          {/* Children */}
                           {item.children.map((child) => (
                             <Link
                               key={child.href}
@@ -482,9 +609,10 @@ export function Header() {
                                 py-2.5
                                 text-sm
                                 font-medium
-                                text-muted-foreground
+                                text-white/55
                                 transition-colors
-                                hover:bg-accent/10
+                                hover:bg-white/5
+                                hover:text-white
                               "
                             >
                               {child.title}
@@ -505,11 +633,11 @@ export function Header() {
                             text-base
                             font-semibold
                             transition-colors
-                            hover:bg-accent/10
+                            hover:bg-white/5
                           `,
                           isActive(item.href)
                             ? 'text-accent-bright'
-                            : 'text-foreground'
+                            : 'text-white/90'
                         )}
                       >
                         {item.title}
@@ -519,11 +647,25 @@ export function Header() {
                 ))}
               </ul>
 
-              {/* =========================
+              {/* =================================================
                   MOBILE FOOTER ACTIONS
-                  ========================= */}
-              <div className="mt-auto flex flex-col gap-3 pt-8">
-                <Button asChild className="w-full">
+                  ================================================= */}
+              <div
+                className="
+                  mt-auto
+                  flex
+                  flex-col
+                  gap-3
+                  border-t
+                  border-white/10
+                  pt-6
+                "
+              >
+                {/* Quote */}
+                <Button
+                  asChild
+                  className="w-full"
+                >
                   <Link
                     href="/contact"
                     onClick={() => setMobileOpen(false)}
@@ -532,6 +674,7 @@ export function Header() {
                   </Link>
                 </Button>
 
+                {/* Phone */}
                 <a
                   href={`tel:${siteConfig.contact.phoneE164[0]}`}
                   className="
@@ -541,10 +684,13 @@ export function Header() {
                     gap-2
                     text-sm
                     font-medium
-                    text-foreground
+                    text-white/80
+                    transition-colors
+                    hover:text-white
                   "
                 >
                   <Phone className="h-4 w-4 text-accent" />
+
                   {siteConfig.contact.phones[0]}
                 </a>
               </div>

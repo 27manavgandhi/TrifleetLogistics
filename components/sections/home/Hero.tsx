@@ -22,9 +22,10 @@ import { Marquee } from '@/components/animations/Motion';
 import { images } from '@/lib/constants/images';
 import { siteConfig } from '@/lib/constants/site';
 
-/**
- * Background slideshow
- */
+/* ============================================================
+   BACKGROUND SLIDES
+   ============================================================ */
+
 const SLIDES = [
   images.truckHighway1,
   images.truckHighway2,
@@ -33,37 +34,55 @@ const SLIDES = [
 
 const SLIDE_DURATION = 5500;
 
+/* ============================================================
+   BACKGROUND SLIDESHOW
+   ============================================================ */
+
 function BackgroundSlideshow() {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const id = setInterval(() => {
-      setIndex((i) => (i + 1) % SLIDES.length);
+    const id = window.setInterval(() => {
+      setIndex((current) => (current + 1) % SLIDES.length);
     }, SLIDE_DURATION);
 
-    return () => clearInterval(id);
+    return () => {
+      window.clearInterval(id);
+    };
   }, []);
 
   return (
-    <div className="absolute inset-0 overflow-hidden">
-      <AnimatePresence initial={false}>
+    <div
+      className="
+        absolute
+        inset-0
+        z-0
+        overflow-hidden
+        bg-primary-deep
+      "
+      aria-hidden="true"
+    >
+      {/* ========================================================
+          BACKGROUND IMAGE
+          ======================================================== */}
+      <AnimatePresence initial={false} mode="sync">
         <motion.div
           key={index}
           className="absolute inset-0"
-          initial={{ opacity: 0 }}
+          initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{
-            duration: 1.4,
+            duration: 1.2,
             ease: [0.16, 1, 0.3, 1],
           }}
         >
           <motion.div
             className="absolute inset-0"
-            initial={{ scale: 1 }}
-            animate={{ scale: 1.12 }}
+            initial={{ scale: 1.02 }}
+            animate={{ scale: 1.08 }}
             transition={{
-              duration: SLIDE_DURATION / 1000 + 1.4,
+              duration: SLIDE_DURATION / 1000 + 1.2,
               ease: 'linear',
             }}
           >
@@ -72,48 +91,107 @@ function BackgroundSlideshow() {
               alt="TriFleet vehicles on national highway"
               fill
               priority={index === 0}
+              fetchPriority={index === 0 ? 'high' : 'auto'}
               sizes="100vw"
-              className="object-cover"
+              className="
+                object-cover
+                object-center
+              "
             />
           </motion.div>
         </motion.div>
       </AnimatePresence>
 
-      {/* Dark scrims */}
+      {/* ========================================================
+          DARK OVERLAYS
+          ======================================================== */}
+
       <div
-        aria-hidden
-        className="absolute inset-0 bg-primary-deep/40"
+        className="
+          absolute
+          inset-0
+          bg-primary-deep/45
+        "
       />
 
       <div
-        aria-hidden
-        className="absolute inset-0 bg-gradient-to-t from-primary-deep/80 via-primary-deep/40 to-primary-deep/10"
+        className="
+          absolute
+          inset-0
+          bg-gradient-to-t
+          from-primary-deep/90
+          via-primary-deep/45
+          to-primary-deep/15
+        "
       />
 
       <div
-        aria-hidden
-        className="absolute inset-0 bg-gradient-to-r from-primary-deep/70 via-primary-deep/30 to-transparent"
+        className="
+          absolute
+          inset-0
+          bg-gradient-to-r
+          from-primary-deep/75
+          via-primary-deep/35
+          to-transparent
+        "
       />
 
-      {/* Slide indicators */}
-      <div className="absolute bottom-8 right-5 z-10 flex gap-2 sm:right-8 lg:right-12">
+      {/* Slight additional top protection for dark header */}
+      <div
+        className="
+          absolute
+          inset-x-0
+          top-0
+          h-32
+          bg-gradient-to-b
+          from-primary-deep/40
+          to-transparent
+        "
+      />
+
+      {/* ========================================================
+          SLIDE INDICATORS
+          ======================================================== */}
+
+      <div
+        className="
+          absolute
+          bottom-8
+          right-5
+          z-10
+          flex
+          gap-2
+          sm:right-8
+          lg:right-12
+        "
+      >
         {SLIDES.map((_, i) => (
           <button
             key={i}
             type="button"
             aria-label={`Show slide ${i + 1}`}
             onClick={() => setIndex(i)}
-            className={`h-1 rounded-full transition-all duration-500 ${
-              i === index
-                ? 'w-7 bg-accent'
-                : 'w-3 bg-white/30 hover:bg-white/50'
-            }`}
+            className={`
+              h-1
+              rounded-full
+              transition-all
+              duration-500
+              ${
+                i === index
+                  ? 'w-7 bg-accent'
+                  : 'w-3 bg-white/30 hover:bg-white/50'
+              }
+            `}
           />
         ))}
       </div>
     </div>
   );
 }
+
+/* ============================================================
+   HERO
+   ============================================================ */
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -149,15 +227,28 @@ export function Hero() {
         lg:pt-32
       "
     >
+      {/* ========================================================
+          BACKGROUND
+          ======================================================== */}
+
       <BackgroundSlideshow />
 
+      {/* Decorative grid */}
       <GridBackdrop variant="dark" />
 
-      {/* =========================
+      {/* ========================================================
           HERO CONTENT
-          ========================= */}
+          
+          IMPORTANT:
+          No entrance opacity animations.
+          Everything is rendered together immediately.
+          ======================================================== */}
+
       <motion.div
-        style={{ opacity, y: yText }}
+        style={{
+          opacity,
+          y: yText,
+        }}
         className="
           container-px
           relative
@@ -175,16 +266,12 @@ export function Hero() {
         "
       >
         <div className="max-w-3xl">
-          {/* =========================
+
+          {/* ======================================================
               EYEBROW
-              ========================= */}
-          <motion.span
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.6,
-              ease: [0.16, 1, 0.3, 1],
-            }}
+              ====================================================== */}
+
+          <div
             className="
               inline-flex
               w-fit
@@ -209,15 +296,19 @@ export function Hero() {
           >
             <span className="relative flex h-1.5 w-1.5 shrink-0">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
+
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
             </span>
 
             Pan-India FTL &amp; B2B Logistics
-          </motion.span>
+          </div>
 
-          {/* =========================
+          {/* ======================================================
               HEADING
-              ========================= */}
+              
+              Render as one composition instead of staggered words.
+              ====================================================== */}
+
           <h1
             className="
               mt-5
@@ -232,65 +323,19 @@ export function Hero() {
               lg:text-[4.2rem]
             "
           >
-            {'Moving India with'.split(' ').map((w, i) => (
-              <motion.span
-                key={i}
-                className="
-                  mr-[0.2em]
-                  inline-block
-                  overflow-hidden
-                  pb-[0.2em]
-                  sm:mr-[0.25em]
-                  sm:pb-[0.25em]
-                "
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{
-                  delay: 0.1 + i * 0.08,
-                  duration: 0.5,
-                }}
-              >
-                <motion.span
-                  className="inline-block"
-                  initial={{ y: '110%' }}
-                  animate={{ y: '0%' }}
-                  transition={{
-                    delay: 0.1 + i * 0.08,
-                    duration: 0.7,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                >
-                  {w}
-                </motion.span>
-              </motion.span>
-            ))}
-
+            Moving India with
             <br />
 
-            <motion.span
-              className="text-gradient-light"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.5,
-                duration: 0.7,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-            >
+            <span className="text-gradient-light">
               precision &amp; control
-            </motion.span>
+            </span>
           </h1>
 
-          {/* =========================
+          {/* ======================================================
               DESCRIPTION
-              ========================= */}
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.6,
-              duration: 0.7,
-            }}
+              ====================================================== */}
+
+          <p
             className="
               mt-5
               max-w-xl
@@ -306,18 +351,13 @@ export function Hero() {
             transportation across India — a modern fleet and trusted
             logistics partners keeping your freight moving safely,
             efficiently and on schedule.
-          </motion.p>
+          </p>
 
-          {/* =========================
+          {/* ======================================================
               CTA BUTTONS
-              ========================= */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.7,
-              duration: 0.7,
-            }}
+              ====================================================== */}
+
+          <div
             className="
               mt-6
               flex
@@ -328,6 +368,7 @@ export function Hero() {
               sm:items-center
             "
           >
+            {/* Primary CTA */}
             <MagneticButton
               as="a"
               href="/contact"
@@ -352,9 +393,17 @@ export function Hero() {
             >
               Get a Quote
 
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <ArrowRight
+                className="
+                  h-4
+                  w-4
+                  transition-transform
+                  group-hover:translate-x-1
+                "
+              />
             </MagneticButton>
 
+            {/* Phone CTA */}
             <MagneticButton
               as="a"
               href={`tel:${siteConfig.contact.phoneE164[0]}`}
@@ -382,25 +431,13 @@ export function Hero() {
 
               {siteConfig.contact.phones[0]}
             </MagneticButton>
-          </motion.div>
+          </div>
 
-          {/* =========================
+          {/* ======================================================
               TRUST / STATS
-              =========================
-              
-              IMPORTANT MOBILE FIX:
-              - Stacks vertically on phones
-              - Each item gets its own visible area
-              - Stronger contrast
-              - Doesn't rely on flex-wrap
-              ========================= */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.9,
-              duration: 0.7,
-            }}
+              ====================================================== */}
+
+          <div
             className="
               relative
               z-20
@@ -423,7 +460,10 @@ export function Hero() {
               lg:backdrop-blur-none
             "
           >
-            {/* 95% on-time */}
+            {/* ==================================================
+                ON-TIME
+                ================================================== */}
+
             <div
               className="
                 flex
@@ -441,14 +481,24 @@ export function Hero() {
                 lg:py-0
               "
             >
-              <ShieldCheck className="h-4 w-4 shrink-0 text-accent" />
+              <ShieldCheck
+                className="
+                  h-4
+                  w-4
+                  shrink-0
+                  text-accent
+                "
+              />
 
-              <span className="font-medium whitespace-nowrap">
+              <span className="whitespace-nowrap font-medium">
                 95% on-time delivery
               </span>
             </div>
 
-            {/* Pan India */}
+            {/* ==================================================
+                PAN INDIA
+                ================================================== */}
+
             <div
               className="
                 flex
@@ -469,14 +519,24 @@ export function Hero() {
                 lg:py-0
               "
             >
-              <MapPinned className="h-4 w-4 shrink-0 text-accent" />
+              <MapPinned
+                className="
+                  h-4
+                  w-4
+                  shrink-0
+                  text-accent
+                "
+              />
 
-              <span className="font-medium whitespace-nowrap">
+              <span className="whitespace-nowrap font-medium">
                 Pan-India coverage
               </span>
             </div>
 
-            {/* Vehicles */}
+            {/* ==================================================
+                VEHICLES
+                ================================================== */}
+
             <div
               className="
                 flex
@@ -497,19 +557,30 @@ export function Hero() {
                 lg:py-0
               "
             >
-              <Truck className="h-4 w-4 shrink-0 text-accent" />
+              <Truck
+                className="
+                  h-4
+                  w-4
+                  shrink-0
+                  text-accent
+                "
+              />
 
-              <span className="font-medium whitespace-nowrap">
+              <span className="whitespace-nowrap font-medium">
                 350+ vehicles in network
               </span>
             </div>
-          </motion.div>
+          </div>
         </div>
       </motion.div>
 
-      {/* =========================
+      {/* ==========================================================
           TRUST MARQUEE
-          ========================= */}
+
+          Kept visually attached to hero.
+          No delayed entrance animation.
+          ========================================================== */}
+
       <div
         className="
           relative
@@ -553,7 +624,15 @@ export function Hero() {
                 sm:tracking-[0.2em]
               "
             >
-              <span className="h-1 w-1 shrink-0 rounded-full bg-accent" />
+              <span
+                className="
+                  h-1
+                  w-1
+                  shrink-0
+                  rounded-full
+                  bg-accent
+                "
+              />
 
               {t}
             </span>
@@ -561,14 +640,12 @@ export function Hero() {
         </Marquee>
       </div>
 
-      {/* =========================
+      {/* ==========================================================
           SCROLL HINT
-          ========================= */}
+          ========================================================== */}
+
       <motion.div
         aria-hidden
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.4 }}
         className="
           absolute
           bottom-4
@@ -579,18 +656,37 @@ export function Hero() {
           lg:block
         "
       >
-        <div className="flex h-10 w-6 items-start justify-center rounded-full border border-white/20 p-1.5">
+        <div
+          className="
+            flex
+            h-10
+            w-6
+            items-start
+            justify-center
+            rounded-full
+            border
+            border-white/20
+            p-1.5
+          "
+        >
           <motion.div
-            animate={{ y: [0, 10, 0] }}
+            animate={{
+              y: [0, 10, 0],
+            }}
             transition={{
               duration: 1.8,
               repeat: Infinity,
               ease: 'easeInOut',
             }}
-            className="h-1.5 w-1 rounded-full bg-accent"
+            className="
+              h-1.5
+              w-1
+              rounded-full
+              bg-accent
+            "
           />
         </div>
       </motion.div>
     </section>
   );
-          }
+}

@@ -28,10 +28,10 @@ function ClientCard({ client }: { client: (typeof clients)[number] }) {
             alt={`${client.name} logo`}
             width={140}
             height={40}
-            className="h-9 w-auto max-w-[120px] object-contain grayscale opacity-70 transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-100"
+            className="h-9 w-auto max-w-[120px] object-contain"
           />
         ) : (
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-bold tracking-tight text-primary transition-colors duration-500 group-hover:bg-accent group-hover:text-accent-foreground">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-bold tracking-tight text-accent-foreground transition-colors duration-500">
             {initials(client.name)}
           </span>
         )}
